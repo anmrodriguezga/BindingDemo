@@ -1,18 +1,16 @@
 ﻿using AutoMapper;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using WebApplication2.AppDbContext;
-using WebApplication2.DTO;
 
 namespace WebApplication2.Queries
 {
     public class GetParcelByParcelNumber
     {
-        public class Query : IRequest<ParcelDto>
+        public class Query : IRequest<List<Dictionary<string, object>>>
         {
             public string ParcelNumber { get; set; }
         }
-        public sealed class Handler : IRequestHandler<Query, ParcelDto>
+        public sealed class Handler : IRequestHandler<Query, List<Dictionary<string, object>>>
         {
             private readonly IAppDbContext _appDbContext;
             private readonly IMapper _mapper;
@@ -23,12 +21,15 @@ namespace WebApplication2.Queries
                 _mapper = mapper;
             }
 
-            public async Task<ParcelDto> Handle(Query request,
+            public async Task<List<Dictionary<string, object>>> Handle(Query request,
                 CancellationToken cancellationToken)
             {
-                var result = _appDbContext.ParcelDto
-                                .FromSqlInterpolated($"EXEC [dbo].[spGetParcelJson] @parcelNumber = {request.ParcelNumber}")
-                                .AsEnumerable().FirstOrDefault();
+                //var result = _appDbContext.ParcelDto
+                //                .FromSqlInterpolated($"EXEC [dbo].[spGetParcelJson] @parcelNumber = {request.ParcelNumber}")
+                //                .AsEnumerable().FirstOrDefault();
+
+                var result = _appDbContext.ExecuteSqlScript($"EXEC [dbo].[spGetParcelJson] @parcelNumber = {request.ParcelNumber}");
+
 
                 return result is null ? throw new Exception("Parcel not found") : result;
             }
