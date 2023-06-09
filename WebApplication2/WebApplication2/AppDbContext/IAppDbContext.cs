@@ -9,6 +9,7 @@ namespace WebApplication2.AppDbContext
         DbSet<Parcel> Parcel { get; set; }
         DbSet<ParcelDto> ParcelDto { get; set; }
 
+        public List<Dictionary<string, object>> ExecuteSqlScript(string script);
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }
