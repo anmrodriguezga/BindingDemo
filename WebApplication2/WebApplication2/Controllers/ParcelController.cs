@@ -14,5 +14,13 @@ namespace WebApplication2.Controllers
             var result = await Mediator.Send(request);
             return Ok(result);
         }
+
+        [HttpGet("GetParcelJson")]
+        public async Task<IActionResult> GetParcelJson(
+            [FromQuery] GetParcelJsonByParcelNumber.Query request)
+        {
+            var result = await Mediator.Send(request);
+            return Ok(result);
+        }
     }
 }

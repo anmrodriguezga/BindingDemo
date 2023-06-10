@@ -39,22 +39,47 @@
 
   <br><br><br>
 
-  <span>{{this.data | json}}</span>
-
-  <br><br><br>
-
+  <div>
+    <b>GetParcel result:</b>
+    <br>
+    <span>{{data | json}}</span>
+  </div>
+  <br>
   <table>
     <thead>
       <tr>
-        <th *ngFor="let header of getHeaders()">{{header}}</th>
+        <th *ngFor="let header of getHeaders(data)">{{header}}</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let item of data">
-        <td *ngFor="let key of getHeaders()">{{item[key]}}</td>
+        <td *ngFor="let key of getHeaders(data)">{{item[key]}}</td>
       </tr>
     </tbody>
   </table>
+
+  <br><br><br>
+
+  <div>
+    <b>GetParcelJson result:</b>
+    <br>
+    <span>{{dataJson | json}}</span>
+  </div>
+  <br>
+  <table>
+    <thead>
+      <tr>
+        <th *ngFor="let header of getHeaders(dataJson)">{{header}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of dataJson">
+        <td *ngFor="let key of getHeaders(dataJson)">{{item[key]}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+
 
 
   

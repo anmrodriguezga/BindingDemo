@@ -13,17 +13,21 @@ export class AppComponent implements OnInit {
 
   title = 'TestApp';
   data: any;
+  dataJson: any;
 
   ngOnInit(): void {
-    this.parcelService.getParcel().subscribe((data:any) => {
-      this.data = JSON.parse(data.details);
+    this.parcelService.getParcelJson().subscribe((dataJson: any) => {
+      this.dataJson = JSON.parse(dataJson.details);
+    })
+    this.parcelService.getParcel().subscribe((data: any) => {
+      this.data = data;
     })
   }
 
-  getHeaders() {
+  getHeaders(incomingData: any) {
     let headers: string[] = [];
-    if(this.data) {
-      this.data.forEach((value: string) => {
+    if(incomingData) {
+      incomingData.forEach((value: string) => {
         Object.keys(value).forEach((key) => {
           if(!headers.find((header) => header == key)){
             headers.push(key)

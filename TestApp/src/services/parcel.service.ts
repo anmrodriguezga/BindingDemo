@@ -8,4 +8,8 @@ export class ParcelService {
     getParcel() {
         return this.http.get('https://localhost:7173/api/Parcel/GetParcel?ParcelNumber=0206202066')
     }
+
+    getParcelJson() {
+        return this.http.get('https://localhost:7173/api/Parcel/GetParcelJson?ParcelNumber=0206202066')
+    }
 }
